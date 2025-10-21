@@ -21,6 +21,18 @@
 
         nativeBuildInputs = [ pkgs.dpkg pkgs.autoPatchelfHook ];
 
+        buildInputs = [
+          pkgs.libusb1
+          pkgs.xorg.libX11
+          pkgs.xorg.libXtst
+          pkgs.xorg.libXrandr
+          pkgs.gtk3
+          pkgs.libgcrypt
+          pkgs.libgpg-error
+          pkgs.e2fsprogs    # for libcom_err.so.2
+          pkgs.krb5         # for libkrb5.so.3, libgssapi_krb5.so.2
+        ];
+
         unpackPhase = ''
           mkdir extract
           dpkg-deb -x $src extract
@@ -31,14 +43,6 @@
           cp -r extract/* $out/
         '';
 
-        buildInputs = [
-          pkgs.libusb1
-          pkgs.xorg.libX11
-          pkgs.xorg.libXtst
-          pkgs.xorg.libXrandr
-          pkgs.gtk3
-        ];
-
         dontPatchELF = false;
         dontStrip = true;
 
@@ -47,7 +51,7 @@
           homepage = "https://www.huion.com";
           license = licenses.unfreeRedistributable;
           platforms = [ "x86_64-linux" ];
-          maintainers = [ maintainers.unfree ];
+          maintainers = [ ];
         };
       };
 
